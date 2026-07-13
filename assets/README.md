@@ -1,5 +1,18 @@
-Placeholder for Expo assets. Replace with 1024x1024 OmniTender-branded icons before App Store / Play Store submission.
+# Expo assets (required for store builds)
 
-Run from repo root after adding PNGs:
+`app.json` references:
 
-  npx expo prebuild --clean
+- `icon.png` (1024×1024)
+- `adaptive-icon.png` (1024×1024)
+- `splash-icon.png`
+- `favicon.png`
+
+These PNGs are **not committed yet**. Unit/TypeScript smoke (`npm run smoke`) does not need them.
+
+After adding OmniTender-branded PNGs here:
+
+```bash
+npx expo prebuild --clean
+```
+
+See `docs/SMOKE.md` for the full local health checklist.

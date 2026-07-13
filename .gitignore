@@ -11,3 +11,7 @@ web-build/
 .DS_Store
 .env
 .env.local
+
+# local Cursor inject
+.cursor/
+
