@@ -10,7 +10,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "tsc --noEmit",
-    "test": "node --test tests/totp.test.js"
+    "test": "node --test tests/totp.test.js",
+    "smoke": "npm test && npm run lint"
   },
   "dependencies": {
     "expo": "~52.0.46",
