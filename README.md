@@ -45,6 +45,12 @@ Until `eas init` runs, `app.json` keeps `projectId: "replace-with-eas-project-id
 
 Local unit smoke does not require the PNGs.
 
+## Fleet
+
+This repo is **OmniTender fleet HQ for staff TOTP backup auth** — branded authenticator for console passkey fallback.
+
+Cross-repo wiring and agent topology: [neural-network/connectome](https://github.com/subtiliorars-sys/neural-network/tree/main/connectome).
+
 ## Related repos
 
 - [omnitender-web](https://github.com/subtiliorars-sys/omnitender-web) — Staff CRM dashboard (public)
