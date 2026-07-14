@@ -41,7 +41,7 @@ export default function HomeScreen() {
 
       {accounts.length === 0 && (
         <Text style={styles.firstTip} accessibilityLabel="omniauth-first-home-tip">
-          First run? Open OmniTender staff setup, then Scan QR — secrets stay on this device. Passkeys stay daily primary.
+          First run? Scan the OmniTender staff QR — secrets stay on device. Codes hide while the app is backgrounded.
         </Text>
       )}
 
