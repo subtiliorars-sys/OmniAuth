@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { AppState, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link, useFocusEffect } from 'expo-router';
 import * as Clipboard from 'expo-clipboard';
 import { Account, listAccounts } from '@/lib/storage';
@@ -8,6 +8,7 @@ import { currentCode, secondsRemaining } from '@/lib/totp';
 export default function HomeScreen() {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [tick, setTick] = useState(0);
+  const [obscured, setObscured] = useState(AppState.currentState !== 'active');
 
   const refresh = useCallback(async () => {
     setAccounts(await listAccounts());
@@ -22,6 +23,13 @@ export default function HomeScreen() {
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 1000);
     return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (next) => {
+      setObscured(next !== 'active');
+    });
+    return () => sub.remove();
   }, []);
 
   return (
@@ -52,6 +60,7 @@ export default function HomeScreen() {
 
       <FlatList
         data={accounts}
+        extraData={`${tick}:${obscured ? 1 : 0}`}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={styles.empty}>No accounts yet. Add your OmniTender console from the staff setup QR.</Text>
@@ -59,20 +68,23 @@ export default function HomeScreen() {
         renderItem={({ item }) => {
           const code = currentCode(item.secret);
           const remaining = secondsRemaining();
+          const display = obscured ? '••• •••' : code.replace(/(\d{3})(?=\d)/g, '$1 ');
           return (
             <Pressable
               style={styles.card}
+              disabled={obscured}
               onPress={async () => {
+                if (obscured) return;
                 await Clipboard.setStringAsync(code);
               }}
             >
               <View style={styles.cardHeader}>
                 <Text style={styles.issuer}>{item.issuer}</Text>
-                <Text style={styles.timer}>{remaining}s</Text>
+                <Text style={styles.timer}>{obscured ? '—' : `${remaining}s`}</Text>
               </View>
               <Text style={styles.label}>{item.label}</Text>
-              <Text style={styles.code}>{code.replace(/(\d{3})(?=\d)/g, '$1 ')}</Text>
-              <Text style={styles.hint}>Tap to copy</Text>
+              <Text style={styles.code}>{display}</Text>
+              <Text style={styles.hint}>{obscured ? 'Codes hide while app is in background' : 'Tap to copy'}</Text>
             </Pressable>
           );
         }}
