@@ -24,7 +24,7 @@ npx expo start
 
 Run `npm run smoke` before Expo so typecheck/unit gates are green. Scan the OmniTender console QR with OmniAuth only after the account setup screen is open — secrets stay on-device (Secure Store). Passkeys remain daily primary; OmniAuth is the backup path when a passkey is unavailable.
 
-See [`docs/SMOKE.md`](docs/SMOKE.md) for health criteria and known gaps (assets / EAS project id).
+See [`docs/SMOKE.md`](docs/SMOKE.md) for health criteria and known gaps (assets / EAS project id). Run `eas init` before `eas build` so `app.json` projectId is real.
 
 ## Production builds (EAS)
 
