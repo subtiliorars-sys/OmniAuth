@@ -31,6 +31,12 @@ export default function HomeScreen() {
         <Text style={styles.sub}>OmniTender backup authenticator</Text>
       </View>
 
+      {accounts.length === 0 && (
+        <Text style={styles.firstTip} accessibilityLabel="omniauth-first-home-tip">
+          First run? Open OmniTender staff setup, then Scan QR — secrets stay on this device. Passkeys stay daily primary.
+        </Text>
+      )}
+
       <View style={styles.actions}>
         <Link href="/scan" asChild>
           <Pressable style={styles.primaryBtn}>
@@ -98,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   secondaryBtnText: { color: '#e5e7eb', fontWeight: '700' },
+  firstTip: { color: '#f7792c', marginBottom: 14, lineHeight: 20, fontSize: 13 },
   empty: { color: '#6b7280', textAlign: 'center', marginTop: 40, lineHeight: 20 },
   card: {
     backgroundColor: '#171a21',
