@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,7 +14,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm test --if-present || echo "No test script yet"
+      - run: npm run smoke
 
   security-scan:
     runs-on: ubuntu-latest
